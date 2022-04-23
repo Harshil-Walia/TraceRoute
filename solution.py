@@ -107,6 +107,7 @@ def get_route(hostname):
                     tracelist2.append(whatReady)
                     #Fill in end
                 recvPacket, addr = mySocket.recvfrom(1024)
+                # print(addr[0])
                 timeReceived = time.time()
                 timeLeft = timeLeft - howLongInSelect
                 if timeLeft <= 0:
@@ -127,7 +128,8 @@ def get_route(hostname):
                 try: #try to fetch the hostname0
                     #Fill in start
                     # print(types)
-                    pass
+                    var = socket.gethostbyaddr(str(addr[0]))
+                    print(var)
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
@@ -139,8 +141,6 @@ def get_route(hostname):
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     #Fill in start
                     #You should add your responses to your lists here
-                    
-                    print('12')
                     #Fill in end
                 elif types == 3:
                     bytes = struct.calcsize("d")
