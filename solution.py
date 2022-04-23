@@ -147,7 +147,7 @@ def get_route(hostname):
                         #Fill in start
                         #You should add your responses to your lists here
                         final_list.append(var[0])
-                        print(final_list)
+                        print(final_list, var[2])
                         # print(f"{var[0]} {var[2]}")
                         #Fill in end
                     elif types == 3:
@@ -156,7 +156,7 @@ def get_route(hostname):
                         #Fill in start
                         #You should add your responses to your lists here 
                         final_list.append(var[0])
-                        print(final_list)
+                        print(final_list, var[2])
                         # print(f"{var[0]} {var[2]}")
                         #Fill in end
                     elif types == 0:
@@ -177,4 +177,5 @@ def get_route(hostname):
                 mySocket.close()
 
 if __name__ == '__main__':
-    get_route("google.co.il")
+    l = get_route("google.co.il")
+    print(l)
