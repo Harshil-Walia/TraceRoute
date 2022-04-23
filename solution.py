@@ -125,44 +125,54 @@ def get_route(hostname):
                 icmpHeader = recvPacket[20:28]
                 types, code, checksum, packetID, sequence = struct.unpack("bbHHh", icmpHeader)
                 #Fill in end
+                final_list = []
+                error = 0
                 try: #try to fetch the hostname0
                     #Fill in start
                     # print(types)
                     var = socket.gethostbyaddr(str(addr[0]))
-                    print(var)
+                    # print(f"{var[0]} : {var[2]}")
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
                     print(herror)
+                    error = 1
                     #Fill in end
 
-                if types == 11:
-                    bytes = struct.calcsize("d")
-                    timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
-                    #Fill in start
-                    #You should add your responses to your lists here
-                    #Fill in end
-                elif types == 3:
-                    bytes = struct.calcsize("d")
-                    timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
-                    #Fill in start
-                    #You should add your responses to your lists here 
-                    print('2')
-                    #Fill in end
-                elif types == 0:
-                    bytes = struct.calcsize("d")
-                    timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
-                    #Fill in start
-                    #You should add your responses to your lists here and return your list if your destination IP is met
-                    print('3')
-                    #Fill in end
-                else:
-                    pass
-                    #Fill in start
-                    #If there is an exception/error to your if statements, you should append that to your list here
-                    print('4')
-                    #Fill in end
-                break
+                if error == 0:
+
+                    if types == 11:
+                        bytes = struct.calcsize("d")
+                        timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
+                        #Fill in start
+                        #You should add your responses to your lists here
+                        final_list.append(var[0])
+                        print(final_list)
+                        # print(f"{var[0]} {var[2]}")
+                        #Fill in end
+                    elif types == 3:
+                        bytes = struct.calcsize("d")
+                        timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
+                        #Fill in start
+                        #You should add your responses to your lists here 
+                        final_list.append(var[0])
+                        print(final_list)
+                        # print(f"{var[0]} {var[2]}")
+                        #Fill in end
+                    elif types == 0:
+                        bytes = struct.calcsize("d")
+                        timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
+                        #Fill in start
+                        #You should add your responses to your lists here and return your list if your destination IP is met
+                        return final_list
+                        #Fill in end
+                    else:
+                        pass
+                        #Fill in start
+                        #If there is an exception/error to your if statements, you should append that to your list here
+                        
+                        #Fill in end
+                    break
             finally:
                 mySocket.close()
 
